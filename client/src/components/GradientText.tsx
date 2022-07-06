@@ -10,14 +10,14 @@ type Props = {
   
 const GradientText = ({ text }: Props) => {
 
-  const { loading, error, data } = useQuery(NextLaunch);
+  //const { loading, error, data } = useQuery(NextLaunch);
 
-  // const { loading, error, data } = useQuery<LaunchesUpcomingInventoryData, InventoryVars>(UpcomingLaunchesTable,{ 
-  //   variables: { 
-  //     limit: 10,
-  //   } 
-  // }
-  // );
+  const { loading, error, data } = useQuery<LaunchesUpcomingInventoryData, InventoryVars>(UpcomingLaunchesTable,{ 
+    variables: { 
+      limit: 10,
+    } 
+  }
+  );
 
   // const { loading, error, data } = useQuery<LaunchesPastInventoryData, InventoryVars>(PastLaunchesPage,{ 
   //   variables: { 
