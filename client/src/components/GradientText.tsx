@@ -12,19 +12,19 @@ const GradientText = ({ text }: Props) => {
 
   //const { loading, error, data } = useQuery(NextLaunch);
 
-  const { loading, error, data } = useQuery<LaunchesUpcomingInventoryData, InventoryVars>(UpcomingLaunchesTable,{ 
-    variables: { 
-      limit: 10,
-    } 
-  }
-  );
-
-  // const { loading, error, data } = useQuery<LaunchesPastInventoryData, InventoryVars>(PastLaunchesPage,{ 
+  // const { loading, error, data } = useQuery<LaunchesUpcomingInventoryData, InventoryVars>(UpcomingLaunchesTable,{ 
   //   variables: { 
-  //     limit: 20,
+  //     limit: 10,
   //   } 
   // }
   // );
+
+  const { loading, error, data } = useQuery<LaunchesPastInventoryData, InventoryVars>(PastLaunchesPage,{ 
+    variables: { 
+      limit: 20,
+    } 
+  }
+  );
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
