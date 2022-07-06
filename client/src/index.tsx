@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
@@ -17,7 +22,11 @@ export const client = new ApolloClient({
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+        </Routes>
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>
 );
