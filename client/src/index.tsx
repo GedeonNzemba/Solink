@@ -9,8 +9,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const client = new ApolloClient({
-  uri: process.env.API || "https://api.spacex.land/graphql/",
+export const client = new ApolloClient({
+  uri: process.env.APn || "https://api.spacex.land/graphql/",
   cache: new InMemoryCache(),
 });
 
