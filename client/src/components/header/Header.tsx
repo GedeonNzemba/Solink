@@ -9,7 +9,7 @@ const Header = () => {
     // const _addCustomer = () => navigate('/customers/new/detail')
 
     return (
-        <header className="flex flex-row justify-between items-center pt-6 pb-6 pl-5 pr-5 bg-gray-200 h-10 shadow">
+        <header className="flex flex-row justify-between items-center pt-6 pb-6 pl-5 pr-5 bg-SOLINK_NYANZA h-10 shadow">
             <div className="block">
                 <Link to='/'>
                     <img src={logo} alt="logo" className="w-40" />

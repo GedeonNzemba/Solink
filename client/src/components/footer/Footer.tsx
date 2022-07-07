@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <footer className="flex flex-row justify-center items-center bg-gray-200 h-6 pt-6 pb-6 pl-5 pr-5 shadow">
+        <footer className="flex flex-row justify-center items-center bg-SOLINK_NYANZA h-6 pt-6 pb-6 pl-5 pr-5 shadow">
             <div className="block ml-4 mr-4">
                 <div className="text-base capitalize text-black">
                     gedeon nzemba
