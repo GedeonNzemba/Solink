@@ -5,9 +5,9 @@ import PastLaunch from './PastLaunchesPage/PastLaunch'
 
 const Index = () => {
     return (
-        <main>
+        <main className="flex-auto">
             <Routes>
-                <Route path="/" element={<Main text='Testing one Two Three Four AND MORE' />} />
+                <Route path="/" element={<Main />} />
                 <Route path="/pastLaunches" element={<PastLaunch />} />
             </Routes>
         </main>

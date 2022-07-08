@@ -1,53 +1,109 @@
-import React from 'react'
-import { useQuery } from '@apollo/client';
-import { NextLaunch, PastLaunchesPage, UpcomingLaunchesTable } from '../../api/query';
-import { LaunchesUpcomingInventoryData, InventoryVars, LaunchesPastInventoryData } from '../../utils/types';
-import Loader from '../../loader/Loader';
+/* eslint-disable no-script-url */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
+import { NextLaunchsUpcoming, PastLaunchesPage } from "../../api/query";
+import { LaunchesUpcomingInventoryData, InventoryVars, LaunchesPastInventoryData, DATA, Inventory, LaunchNextInventoryData } from "../../utils/types";
+import Loader from "../../loader/Loader";
+import Head from "../table/Head";
+import Body from "../table/Body";
+import Title from "../titles/Title";
+import { TITLES } from "../../utils/enum";
 
+interface LaunchSite {
+  site_name: string;
+}
+interface RocketInventory {
+  mission_name: string;
+  launch_date_local: string;
+  launch_site: LaunchSite;
+}
 
-type Props = {
-  text: string;
-};
+interface RocketInventoryVars {
+  limit: number;
+}
 
-const GradientText = ({ text }: Props) => {
+interface RocketInventoryData {
+  launchNext: RocketInventory
+  launchesUpcoming: RocketInventory[];
+}
 
-  const { loading, error, data } = useQuery(NextLaunch);
+const Main = () => {
 
-  // const { loading, error, data } = useQuery<LaunchesUpcomingInventoryData, InventoryVars>(UpcomingLaunchesTable,{ 
-  //   variables: { 
+  // const [launchNext, setLaunchNext] = useState<[string, RocketInventory][]>([])
+  // const [launchesUpcoming, setLaunchesUpcoming] = useState<RocketInventory[]>([])
+
+  const { loading, data } = useQuery<RocketInventoryData, RocketInventoryVars>(NextLaunchsUpcoming, {
+    variables: {
+      limit: 10
+    }
+  });
+
+  // const { loading, error, data } = useQuery<LaunchesUpcomingInventoryData, InventoryVars>(UpcomingLaunchesTable,{
+  //   variables: {
   //     limit: 10,
-  //   } 
+  //   }
   // }
   // );
 
-  // const { loading, error, data } = useQuery<LaunchesPastInventoryData, InventoryVars>(PastLaunchesPage,{ 
-  //   variables: { 
+  // const { loading, error, data } = useQuery<LaunchesPastInventoryData, InventoryVars>(PastLaunchesPage,{
+  //   variables: {
   //     limit: 20,
-  //   } 
+  //   }
   // }
   // );
 
-  if (error) return <p>Error : {error.message}</p>;
+  // if (error) {
+  //   console.log("error =>>", error.message)
+  // }
 
-
+  // let Arr: { data: RocketInventory; }[] = [];
 
   return (
-    <>
-      {loading ? <Loader />
-        :
-        (
-          <div className="p-10 min-h-screen flex items-center justify-center bg-cool-gray-700">
+    <div className="container">
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <section className="bg-white py-20 lg:py-[120px]">
+            <Title name={TITLES.NEXT_LAUNCH} />
+            <div className="flex flex-wrap -mx-4">
+              <div className="w-full px-4">
+                <div className="max-w-full overflow-x-auto">
 
-            <h6 className="text-lg font-black text-white text-center">
-              <span className="bg-gradient-to-r text-transparent bg-clip-text from-green-400 to-purple-500">
-                {text}
-              </span>
-            </h6>
-            <pre>{!loading && JSON.stringify(data, null, 2)}</pre>
-          </div>
-        )}
-    </>
+                  {data && (
+                    <table className="table-auto w-full">
+                      <Head />
+                      <Body values={data.launchNext} />
+                    </table>
+                  )}
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="bg-white py-20 lg:py-[120px]">
+            <Title name={TITLES.UpCOMMING_LAUNCHES_TABLE} />
+            <div className="flex flex-wrap -mx-4">
+              <div className="w-full px-4">
+                <div className="max-w-full overflow-x-auto">
+
+                  {data && (
+                    <table className="table-auto w-full">
+                      <Head />
+                      <Body launchesUpcoming={data.launchesUpcoming} />
+                    </table>
+                  )}
+
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+    </div>
   );
 };
 
-export default GradientText
+export default Main;
