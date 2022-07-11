@@ -16,9 +16,10 @@ interface RocketInventory {
 interface RocketInventoryData {
     values?: RocketInventory
     launchesUpcoming?: RocketInventory[];
+    launchesPast?: RocketInventory[];
 }
 
-const Body = ({ values, launchesUpcoming }: RocketInventoryData) => {
+const Body = ({ values, launchesUpcoming, launchesPast }: RocketInventoryData) => {
     return (
         <tbody>
             {values && (
@@ -48,8 +49,28 @@ const Body = ({ values, launchesUpcoming }: RocketInventoryData) => {
                     })}
                 </>
             )}
+
+            {launchesPast && (
+                <>
+                    {launchesPast.map((item, index) => {
+                        return (
+                            <tr key={index}>
+                                <TD>{item.mission_name}</TD>
+                                <TD>{item.launch_date_local}</TD>
+                                <TD>{item.launch_site.site_name}</TD>
+                            </tr>
+                        )
+                    })}
+                </>
+            )}
         </tbody>
     )
 }
 
 export default Body
+
+// how to use props in tailwind css
+
+// z index to the header
+
+// styles each table accordingly

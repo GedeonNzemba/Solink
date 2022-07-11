@@ -26,8 +26,13 @@ export interface LaunchesUpcomingInventoryData {
     launchesUpcoming: DATA[];
 }
 
+interface RocketInventory {
+    mission_name: string;
+    launch_date_local: string;
+    launch_site: LaunchSite;
+  }
 export interface LaunchesPastInventoryData {
-    launchesPast: DATA[];
+    launchesPast: RocketInventory[];
 }
 
 export interface InventoryVars {

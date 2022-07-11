@@ -1,26 +1,22 @@
-/* eslint-disable no-script-url */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
-import { TABLE_BODY_VALUE } from '../../utils/types'
-import Body from './Body'
-import Head from './Head'
+import React, { Children, ReactNode } from 'react'
 
-const Table = ({value}: TABLE_BODY_VALUE) => {
+interface IProps {
+    children: ReactNode
+    borderDoubled?: true
+    // any other props you might have
+  }
+
+const Table = ({ borderDoubled, children }: IProps): JSX.Element => {
     return (
-        <section className="bg-white py-20 lg:py-[120px]">
-            <div className="container">
-                <div className="flex flex-wrap -mx-4">
-                    <div className="w-full px-4">
-                        <div className="max-w-full overflow-x-auto">
-                            <table className="table-auto w-full">
-                                <Head />
-                                {/* <Body value={value} /> */}
-                            </table>
-                        </div>
-                    </div>
+        <div className="flex flex-wrap -mx-4">
+            <div className="w-full px-4">
+                <div className="max-w-full overflow-x-auto">
+                    <table className={`${borderDoubled && 'border-double border-4 border-SOLINK_WINE'} table-auto w-full drop-shadow-md`}>
+                        {children}
+                    </table>
                 </div>
             </div>
-        </section>
+        </div>
     )
 }
 
