@@ -23,7 +23,7 @@ const PastLaunch = () => {
       {loading ? <Loader />
         :
         (
-          <section className="bg-white mt-32 mb-20  lg:py-[120px]">
+          <section className="bg-white mt-32 mb-20">
             <Title name={TITLES.PAST_LAUNCHES_TABLE} />
             <Table >
               {data && (

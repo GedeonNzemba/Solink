@@ -2,15 +2,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
-import { NextLaunchsUpcoming, PastLaunchesPage } from "../../api/query";
-import { LaunchesUpcomingInventoryData, InventoryVars, LaunchesPastInventoryData, DATA, Inventory, LaunchNextInventoryData } from "../../utils/types";
+import { NextLaunchsUpcoming } from "../../api/query";
 import Loader from "../../loader/Loader";
 import Head from "../table/Head";
 import Body from "../table/Body";
 import Title from "../titles/Title";
 import { TITLES } from "../../utils/enum";
-import moment, { duration } from 'moment-timezone';
-import { setInterval } from "timers/promises";
+import moment from 'moment-timezone';
 import Table from "../table/Table";
 
 interface LaunchSite {
@@ -41,8 +39,6 @@ const DEFAULT_STATE: State = {
 
 const Main = () => {
 
-  // const [launchNext, setLaunchNext] = useState<[string, RocketInventory][]>([])
-  // const [launchesUpcoming, setLaunchesUpcoming] = useState<RocketInventory[]>([])
   const [state, setState] = useState<State>({ ...DEFAULT_STATE })
 
   const { loading, data } = useQuery<RocketInventoryData, RocketInventoryVars>(NextLaunchsUpcoming, {
@@ -54,10 +50,6 @@ const Main = () => {
 
   // CONVERTED TO LOCAL TIME DONE &  DISPLAYING REMAINING IN HOURS
   const convertToLocalTime = (localDate: string) => {
-    // const date = moment.utc(localDate).format();
-    // console.log(date, "- now in UTC");
-    // const local = moment.utc(date).local().format();
-    // console.log(local, "- UTC now to local");
 
     let time = moment(localDate);
     time.tz('Africa/Johannesburg').format('ha z');
@@ -91,7 +83,7 @@ const Main = () => {
       ) : (
         <>
 
-          <section className="bg-white mt-32 mb-20  lg:py-[120px]">
+          <section className="bg-white mt-32 mb-20 ">
             <div className="flex flex-wrap justify-center space-x-2">
               <span
                 className="px-4 py-2 rounded-full capitalize text-SOLINK_BLUE bg-SOLINK_NYANZA text-sm flex align-center w-max cursor-pointer active:text-SOLINK_NYANZA active:bg-SOLINK_GREEN transition duration-300 ease">
@@ -113,7 +105,7 @@ const Main = () => {
             </Table>
           </section>
 
-          <section className="bg-white mt-32 mb-20  lg:py-[120px]">
+          <section className="bg-white mt-32 mb-20 ">
             <Title name={TITLES.UpCOMMING_LAUNCHES_TABLE} />
             <Table >
               {data && (

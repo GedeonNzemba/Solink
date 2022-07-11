@@ -32,7 +32,7 @@ const Header = () => {
 
 
     return (
-        <header className="flex drop-shadow-2xl fixed w-full flex-row justify-between items-center pt-9 pb-9 pl-5 pr-5 bg-SOLINK_NYANZA h-10 shadow">
+        <header className="flex drop-shadow-2xl fixed z-20 w-full flex-row justify-between items-center pt-9 pb-9 pl-5 pr-5 bg-SOLINK_NYANZA h-10 shadow">
             <div className="block">
                 <Link to='/'>
                     <img src={logo} alt="logo" className="w-40" />
