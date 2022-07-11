@@ -9,9 +9,8 @@ import Head from "../table/Head";
 import Body from "../table/Body";
 import Title from "../titles/Title";
 import { TITLES } from "../../utils/enum";
-import moment, {duration} from 'moment-timezone';
+import moment, { duration } from 'moment-timezone';
 import { setInterval } from "timers/promises";
-import Particles from 'react-tsparticles';
 import Table from "../table/Table";
 
 interface LaunchSite {
@@ -33,17 +32,11 @@ interface RocketInventoryData {
 }
 
 interface State {
-  days: number;
   hours: number;
-  minutes: number;
-  seconds: number;
 }
 
 const DEFAULT_STATE: State = {
-  days: 0,
-  hours: 0,
-  minutes: 0,
-  seconds: 0,
+  hours: 0
 }
 
 const Main = () => {
@@ -58,85 +51,37 @@ const Main = () => {
     }
   });
 
-  // const { loading, error, data } = useQuery<LaunchesUpcomingInventoryData, InventoryVars>(UpcomingLaunchesTable,{
-  //   variables: {
-  //     limit: 10,
-  //   }
-  // }
-  // );
 
+  // CONVERTED TO LOCAL TIME DONE &  DISPLAYING REMAINING IN HOURS
+  const convertToLocalTime = (localDate: string) => {
+    // const date = moment.utc(localDate).format();
+    // console.log(date, "- now in UTC");
+    // const local = moment.utc(date).local().format();
+    // console.log(local, "- UTC now to local");
 
+    let time = moment(localDate);
+    time.tz('Africa/Johannesburg').format('ha z');
+    console.log("- local past timezone", time.hour());
+    const now = moment();
+    console.log("- local now timezone", now.hour());
 
-  // if (error) {
-  //   console.log("error =>>", error.message)
-  // }
+    let remaining = time.hour() - now.hour();
+    console.log("- remaining hour", remaining);
 
-  // let Arr: { data: RocketInventory; }[] = [];
-
-  // CONVERTED TO LOCAL TIME DONE
-  // const date = moment.utc('2020-12-06T16:17:00.000Z').format();
-  // console.log(date, "- now in UTC");
-  // const local = moment.utc(date).local().format();
-  // console.log(local, "- UTC now to local");
-
-  var jun = moment("2020-12-06T16:17:00.000Z");
-  jun.tz('Africa/Johannesburg').format('ha z');  // 5am PDT
-  console.log("- local past timezone", jun.hour());
-  const now = moment();
-  console.log("- local now timezone", now.hour());
-
-  let remaining = jun.hour() - now.hour();
-  console.log("- remaining", remaining);
-  console.log('moment duration', moment.duration(remaining,'milliseconds').humanize({h:Infinity}));
-
-  let x = moment.duration(remaining,'milliseconds').humanize({h:Infinity})
-
-  let cut = x.split(' ');
-  let hour = cut[0];
-
-  let word = cut[1]
-
-
-  // DISPLAYING REMAINING IN HOURS
-  const calcTimer = () => {
-    //const futureDate = moment(value);
-
-    const today = moment();
-    //console.log('today', today)
-
-    const clockDuration = duration(jun.tz('Africa/Johannesburg').diff(today));
-    //console.log('clockDuration', clockDuration)
-
-    const days = Math.floor(clockDuration.asDays());
-    const hours = clockDuration.hours();
-    const minutes = clockDuration.minutes();
-    const seconds = clockDuration.seconds();
-
-    setState(prevState => ({ ...prevState, days: days }));
-    setState(prevState => ({ ...prevState, hours: hours }));
-    setState(prevState => ({ ...prevState, minutes: minutes }));
-    setState(prevState => ({ ...prevState, seconds: seconds }));
+    setState(prevState => ({ ...prevState, hours: remaining }));
   }
 
 
+
   useEffect(() => {
-    //setTime()
+    if (!!data) {
+      convertToLocalTime(data.launchNext?.launch_date_local)
+    }
+
     // window.setInterval(() => {
     //   calcTimer()
     // }, 1000)
-
-    // return () => {
-    //   window.clearInterval()
-    // }
-  }, [])
-
-
-
-  // const now = Math.floor(Date.now() / 1000);
-  // const time = 1607271420;
-
-  // const remaining = now - time
-  // console.log(moment.duration(remaining, 'milliseconds'))
+  }, [data])
 
 
   return (
@@ -145,12 +90,23 @@ const Main = () => {
         <Loader />
       ) : (
         <>
+
           <section className="bg-white mt-32 mb-20  lg:py-[120px]">
+            <div className="flex flex-wrap justify-center space-x-2">
+              <span
+                className="px-4 py-2 rounded-full capitalize text-SOLINK_BLUE bg-SOLINK_NYANZA text-sm flex align-center w-max cursor-pointer active:text-SOLINK_NYANZA active:bg-SOLINK_GREEN transition duration-300 ease">
+                in about
+              </span>
+              <span
+                className="px-4 py-2 rounded-full text-SOLINK_NYANZA bg-SOLINK_BLUE text-sm flex align-center w-max cursor-pointer active:text-SOLINK_NYANZA active:bg-SOLINK_GREEN transition duration-300 ease">
+                {state.hours} {' '} hours
+              </span>
+            </div>
             <Title name={TITLES.NEXT_LAUNCH} />
             <Table borderDoubled>
               {data && (
                 <>
-                  <Head />
+                  <Head borderDoubled primary />
                   <Body values={data.launchNext} />
                 </>
               )}

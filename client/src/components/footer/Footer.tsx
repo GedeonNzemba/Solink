@@ -15,7 +15,7 @@ const Footer = () => {
 
             <div>
                 <div className="text-base capitalize text-black">
-                    &#169; 2022 by SOLINK Power Procurement. 
+                    &#169; 2022 by SOLINK Power Procurement.
                 </div>
             </div>
         </footer>

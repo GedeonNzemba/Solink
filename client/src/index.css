@@ -11,8 +11,16 @@
     --solink-wine: '#6B2737';
   }
 
- .theme-navItem-active {
-  @apply bg-SOLINK_GREEN text-SOLINK_NYANZA ease-in
+  .navItem-active {
+    @apply bg-SOLINK_GREEN text-SOLINK_NYANZA ease-in duration-300 
+  }
+
+ .table--double-border {
+  @apply border-double border-4 border-SOLINK_WINE
+ }
+
+ .table-head--double-border {
+  @apply border-double border-l-4 border-SOLINK_WINE
  }
 
   .theme-table-double-border {

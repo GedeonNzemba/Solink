@@ -7,28 +7,24 @@ interface STATE {
     past: boolean
 }
 
-const DEFAULT_STATE: STATE = { 
+const DEFAULT_STATE: STATE = {
     home: false,
     past: false
 }
 
 const Header = () => {
     let location = useLocation();
-    console.log(location.pathname === '/m')
 
-    const [state, setState] = useState<STATE>({...DEFAULT_STATE})
-
-    // const _allCustomers = () => navigate('/');
-    // const _addCustomer = () => navigate('/customers/new/detail')
+    const [state, setState] = useState<STATE>({ ...DEFAULT_STATE })
 
     useEffect(() => {
-       if (location.pathname === '/') {
+        if (location.pathname === '/') {
             setState(prevState => ({ ...prevState, home: true }))
             setState(prevState => ({ ...prevState, past: false }))
-       } else {
+        } else {
             setState(prevState => ({ ...prevState, past: true }))
             setState(prevState => ({ ...prevState, home: false }))
-       }
+        }
     }, [location.pathname])
 
     console.log('home =>', state.home)
@@ -47,12 +43,12 @@ const Header = () => {
 
                 <ul className="flex flex-row list-none">
                     <li className="mr-6">
-                        <Link to='/' className={`${state.home && 'bg-SOLINK_GREEN text-SOLINK_NYANZA ease-in duration-300'} capitalize no-underline ease-in duration-300 inline-block px-6 py-2.5 text-SOLINK_BLUE hover:text-SOLINK_NYANZA font-medium text-sm leading-tight rounded hover:bg-SOLINK_GREEN focus:text-SOLINK_NYANZA  focus:outline-none focus:ring-0 active:bg-SOLINK_GREEN active:text-SOLINK_NYANZA transition duration-300 ease-in-out`}>
+                        <Link to='/' className={`${state.home ? 'navItem-active' : 'text-SOLINK_BLUE'} capitalize no-underline ease-in duration-300 inline-block px-6 py-2.5 hover:text-SOLINK_NYANZA font-medium text-sm leading-tight rounded hover:bg-SOLINK_GREEN focus:text-SOLINK_NYANZA  focus:outline-none focus:ring-0 active:bg-SOLINK_GREEN active:text-SOLINK_NYANZA transition duration-300 ease-in-out`}>
                             home
                         </Link>
                     </li>
                     <li className="mr-6 ">
-                        <Link to='/pastLaunches' className={`${state.past ? 'bg-SOLINK_GREEN text-SOLINK_NYANZA ease-in duration-300' : ''} capitalize no-underline ease-in duration-300 inline-block px-6 py-2.5 text-SOLINK_BLUE hover:text-SOLINK_NYANZA font-medium text-sm leading-tight rounded hover:bg-SOLINK_GREEN focus:text-SOLINK_NYANZA  focus:outline-none focus:ring-0 active:bg-SOLINK_GREEN active:text-SOLINK_NYANZA transition duration-300 ease-in-out`}>
+                        <Link to='/pastLaunches' className={`${state.past ? 'navItem-active' : 'text-SOLINK_BLUE'} capitalize no-underline ease-in duration-300 inline-block px-6 py-2.5 hover:text-SOLINK_NYANZA font-medium text-sm leading-tight rounded hover:bg-SOLINK_GREEN focus:text-SOLINK_NYANZA  focus:outline-none focus:ring-0 active:bg-SOLINK_GREEN active:text-SOLINK_NYANZA transition duration-300 ease-in-out`}>
                             past launches
                         </Link>
                     </li>
